@@ -1,0 +1,41 @@
+{
+ "sku": {
+  "name": "A0",
+  "tier": "Free"
+ },
+ "identity": {
+  "principalId": "28417209-b561-4a95-8acd-3d4f4d1efaf7",
+  "tenantId": "a659fe98-5688-4592-99cd-0be85cd550bc",
+  "type": "SystemAssigned"
+ },
+ "properties": {
+  "displayName": "IRS1075 September 2016",
+  "policyDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/105e0327-6175-4eb2-9af4-1fba43bdb39d",
+  "scope": "/subscriptions/77950549-89f8-47fa-bf94-49cba3c855f0",
+  "notScopes": [],
+  "parameters": {
+   "logAnalyticsWorkspaceIdforVMReporting": {
+    "value": "BertLogsAnalytic1"
+   },
+   "listOfMembersToExcludeFromWindowsVMAdministratorsGroup": {
+    "value": "\"\""
+   },
+   "listOfMembersToIncludeInWindowsVMAdministratorsGroup": {
+    "value": "\"\""
+   }
+  },
+  "metadata": {
+   "assignedBy": "Jeff Bert",
+   "parameterScopes": {},
+   "createdBy": "630963bf-7235-4810-87ee-fa584574cbfd",
+   "createdOn": "2022-03-07T16:12:59.265989Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "enforcementMode": "Default"
+ },
+ "id": "/subscriptions/77950549-89f8-47fa-bf94-49cba3c855f0/providers/Microsoft.Authorization/policyAssignments/e5352bc80914412d924a568b",
+ "type": "Microsoft.Authorization/policyAssignments",
+ "name": "e5352bc80914412d924a568b",
+ "location": "eastus"
+}

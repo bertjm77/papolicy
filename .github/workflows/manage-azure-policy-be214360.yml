@@ -1,0 +1,280 @@
+name: manage-azure-policy-be214360
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'policies/Deploy_Log_Analytics_extension_for_Linux_virtual_machine_scale_sets_5ee9e9ed-0b42-41b7-8c9c-3cfb2fbe2069/**'
+#      - 'policies/Audit_virtual_machines_without_disaster_recovery_configured_0015ea4d-51ff-4ce3-8d8c-f3f8f0179a56/**'
+#      - 'policies/Vulnerability_assessment_should_be_enabled_on_your_Synapse_workspaces_0049a6b3-a662-4f3e-8635-39cf44ace45a/**'
+#      - 'policies/SQL_Server_Integration_Services_integration_runtimes_on_Azure_Data_Factory_should_be_joined_to_a_virtual_network_0088bc63-6dee-4a9c-9d29-91cfdc848952/**'
+#      - 'policies/_Preview_Configure_VMSS_created_with_Shared_Image_Gallery_images_to_install_the_Guest_Attestation_extension_009259b0-12e8-42c9-94e7-7af86aa58d13/**'
+#      - 'policies/Private_endpoint_connections_on_Batch_accounts_should_be_enabled_009a0c92-f5b4-4776-9b66-4ed2b4775563/**'
+#      - 'policies/Azure_Backup_should_be_enabled_for_Virtual_Machines_013e242c-8828-4970-87b3-ab247555486d/**'
+#      - 'policies/_Preview_Azure_Security_agent_should_be_installed_on_your_Windows_Arc_machines_0367cfc4-90b3-46ba-a8a6-ddd5d3514878/**'
+#      - 'policies/Cognitive_Services_accounts_should_restrict_network_access_037eea7a-bd0a-46c5-9a66-03aea78705d3/**'
+#      - 'policies/Azure_Kubernetes_Service_Private_Clusters_should_be_enabled_040732e8-d947-40b8-95d6-854c95024bf8/**'
+#      - 'policies/Audit_Linux_machines_that_have_the_specified_applications_installed_0447bc18-e2f7-4c0d-aa20-bff034275be1/**'
+#      - 'policies/Storage_account_keys_should_not_be_expired_044985bb-afe1-42cd-8a36-9d5d42424537/**'
+#      - 'policies/Azure_Cosmos_DB_allowed_locations_0473574d-2d43-4217-aefe-941fcdf7e684/**'
+#      - 'policies/_Preview_Network_traffic_data_collection_agent_should_be_installed_on_Linux_virtual_machines_04c4380f-3fae-46e8-96c9-30193528f602/**'
+#      - 'policies/Shared_dashboards_should_not_have_markdown_tiles_with_inline_content_04c655fe-0ac7-48ae-9a32-3a2e208c7624/**'
+#      - 'policies/Deploy_Diagnostic_Settings_for_Service_Bus_to_Log_Analytics_workspace_04d53d87-841c-4f23-8a5b-21564380b55e/**'
+#      - 'policies/Configure_Linux_Virtual_Machine_Scale_Sets_to_be_associated_with_a_Data_Collection_Rule_050a90d5-7cce-483f-8f6c-0df462036dda/**'
+#      - 'policies/Azure_API_for_FHIR_should_use_a_customer-managed_key_to_encrypt_data_at_rest_051cba44-2429-45b9-9649-46cec11c7119/**'
+#      - 'policies/Deploy_Log_Analytics_extension_for_Linux_VMs_053d3325-282c-4e5c-b944-24faffd30d77/**'
+#      - 'policies/Azure_Web_Application_Firewall_should_be_enabled_for_Azure_Front_Door_entry-points_055aa869-bc98-4af8-bafc-23f1ab6ffe2c/**'
+#      - 'policies/Private_endpoint_should_be_enabled_for_PostgreSQL_servers_0564d078-92f5-4f97-8398-b9f58a51f70b/**'
+#      - 'policies/Vulnerability_Assessment_settings_for_SQL_server_should_contain_an_email_address_to_receive_scan_reports_057d6cfe-9c4f-4a6d-bc60-14420ea1f1a9/**'
+#      - 'policies/Resource_logs_in_Azure_Data_Lake_Store_should_be_enabled_057ef27e-665e-4328-8ea3-04b3122bd9fb/**'
+#      - 'policies/Configure_Azure_File_Sync_to_use_private_DNS_zones_06695360-db88-47f6-b976-7500d4297475/**'
+#      - 'policies/Audit_VMs_that_do_not_use_managed_disks_06a78e20-9358-41c9-923c-fb736d382a4d/**'
+#      - 'policies/Cognitive_Services_accounts_should_disable_public_network_access_0725b4dd-7e76-479c-a735-68e7ee23d5ca/**'
+#      - 'policies/CORS_should_not_allow_every_resource_to_access_your_Function_Apps_0820b7b9-23aa-4725-a1ce-ae4558f718e5/**'
+#      - 'policies/Deploy_-_Configure_Log_Analytics_extension_to_be_enabled_on_Windows_virtual_machines_0868462e-646c-4fe3-9ced-a733534b6a2c/**'
+#      - 'policies/Audit_Windows_machines_on_which_the_DSC_configuration_is_not_compliant_08a2f2d2-94b2-4a7b-aa3b-bb3f523ee6fd/**'
+#      - 'policies/Azure_Edge_Hardware_Center_devices_should_have_double_encryption_support_enabled_08a6b96f-576e-47a2-8511-119a212d344d/**'
+#      - 'policies/Configure_Data_Factories_to_disable_public_network_access_08b1442b-7789-4130-8506-4f99a97226a7/**'
+#      - 'policies/Deploy_Diagnostic_Settings_for_Search_Services_to_Log_Analytics_workspace_08ba64b8-738f-4918-9686-730d2ed79c7d/**'
+#      - 'policies/Adaptive_network_hardening_recommendations_should_be_applied_on_internet_facing_virtual_machines_08e6af2d-db70-460a-bfe9-d5bd474ba9d6/**'
+#      - 'policies/There_should_be_more_than_one_owner_assigned_to_your_subscription_09024ccc-0c5f-475e-9457-b7c0d9ed487b/**'
+#      - 'policies/Virtual_machines_should_encrypt_temp_disks,_caches,_and_data_flows_between_Compute_and_Storage_resources_0961003e-5a0a-4549-abde-af6a37f2724d/**'
+#      - 'policies/Configure_backup_on_virtual_machines_without_a_given_tag_to_an_existing_recovery_services_vault_in_the_same_location_09ce66bc-1220-4153-8104-e3f51c936913/**'
+#      - 'policies/Private_endpoint_should_be_enabled_for_MariaDB_servers_0a1302fb-a631-4106-9753-f3d494733990/**'
+#      - 'policies/Azure_Policy_Add-on_for_Kubernetes_service_(AKS)_should_be_installed_and_enabled_on_your_clusters_0a15ec92-a229-4763-bb14-0ea34a568f8d/**'
+#      - 'policies/SQL_servers_should_use_customer-managed_keys_to_encrypt_data_at_rest_0a370ff3-6cab-4e85-8995-295fd854c5b8/**'
+#      - 'policies/Configure_Windows_Virtual_Machine_Scale_Sets_to_be_associated_with_a_Data_Collection_Rule_0a3b9bf4-d30e-424a-af6b-9a93f6f78792/**'
+#      - 'policies/Audit_resource_location_matches_resource_group_location_0a914e76-4921-4c19-b460-a2d36003525a/**'
+#      - 'policies/Azure_Defender_for_open-source_relational_databases_should_be_enabled_0a9fbe0d-c5c4-4da8-87d8-f4fd77338835/**'
+#      - 'policies/Azure_Container_Instance_container_group_should_use_customer-managed_key_for_encryption_0aa61e00-0a01-4a3c-9945-e93cffedf0e6/**'
+#      - 'policies/_Preview_Configure_Azure_Arc_enabled_Kubernetes_clusters_to_install_the_Azure_Policy_extension_0adc5395-9169-4b9b-8687-af838d69410a/**'
+#      - 'policies/Configure_Azure_Web_PubSub_Service_to_use_private_DNS_zones_0b026355-49cb-467b-8ac4-f777874e175a/**'
+#      - 'policies/Email_notification_to_subscription_owner_for_high_severity_alerts_should_be_enabled_0b15565f-aa9e-48ba-8619-45960f2c314d/**'
+#      - 'policies/Key_vaults_should_have_purge_protection_enabled_0b60c0b2-2dc2-4e1c-b5c9-abbed971de53/**'
+#      - 'policies/Azure_Cosmos_DB_throughput_should_be_limited_0b7ef78e-a035-4f23-b9bd-aff122a1b1cf/**'
+#      - 'policies/Ensure_API_app_has_Client_Certificates_(Incoming_client_certificates)_set_to_On_0c192fe8-9cbb-4516-85b3-0ade8bd03886/**'
+#      - 'policies/Private_endpoint_connections_on_Automation_Accounts_should_be_enabled_0c2b3618-68a8-4034-a150-ff4abc873462/**'
+#      - 'policies/Application_Insights_components_with_Private_Link_enabled_should_use_Bring_Your_Own_Storage_accounts_for_profiler_and_debugger._0c4bd2e8-8872-4f37-a654-03f6f38ddc76/**'
+#      - 'policies/Private_endpoint_should_be_enabled_for_IoT_Hub_0d40b058-9f95-4a19-93e3-9b0330baa2a3/**'
+#      - 'policies/Managed_identity_should_be_used_in_your_Function_App_0da106f2-4ca3-48e8-bc85-c638fe6aea8f/**'
+#      - 'policies/Deploy_a_flow_log_resource_with_target_network_security_group_0db34a60-64f4-4bf6-bd44-f95c16cf34b9/**'
+#      - 'policies/Modify_-_Configure_Azure_File_Sync_to_disable_public_network_access_0e07b2e9-6cd9-4c40-9ccb-52817b95133b/**'
+#      - 'policies/Authorized_IP_ranges_should_be_defined_on_Kubernetes_Services_0e246bcf-5f6f-4f87-bc6f-775d4712c7ea/**'
+#      - 'policies/Remote_debugging_should_be_turned_off_for_Function_Apps_0e60b895-3786-45da-8377-9c6b4b6ac5f9/**'
+#      - 'policies/Geo-redundant_backup_should_be_enabled_for_Azure_Database_for_MariaDB_0ec47710-77ff-4a3d-9181-6aa50af424d0/**'
+#      - 'policies/Azure_Defender_for_Key_Vault_should_be_enabled_0e6763cc-5078-4e64-889d-ff4d9a839047/**'
+#      - 'policies/Configure_Batch_accounts_with_private_endpoints_0ef5aac7-c064-427a-b87b-d47b3ddcaf73/**'
+#      - 'policies/_Preview_Audit_Azure_Spring_Cloud_instances_where_distributed_tracing_is_not_enabled_0f2d8593-4667-4932-acca-6a9f187af109/**'
+#      - 'policies/Azure_NetApp_Files_Volumes_of_type_NFSv4.1_should_use_Kerberos_data_integrity_or_data_privacy_16f4af95-96b1-4220-805a-367ca59cd72e/**'
+#      - 'policies/Video_Analyzer_accounts_should_use_customer-managed_keys_to_encrypt_data_at_rest_165a4137-c3ed-4fd0-a17f-1c8a80266580/**'
+#      - 'policies/Log_Analytics_agent_should_be_installed_on_your_Cloud_Services_(extended_support)_role_instances_15fdbc87-8a47-4ee9-a2aa-9a2ea1f37554/**'
+#      - 'policies/_Preview_Configure_supported_Windows_machines_to_automatically_install_the_Azure_Security_agent_1537496a-b1e8-482b-a06a-1cc2415cdc7b/**'
+#      - 'policies/Configure_Cognitive_Services_accounts_to_disable_local_authentication_methods_14de9e63-1b31-492e-a5a3-c3f7fd57f555/**'
+#      - 'policies/Audit_Windows_machines_that_contain_certificates_expiring_within_the_specified_number_of_days_1417908b-4bff-46ee-a2a6-4acc899320ab/**'
+#      - 'policies/_Preview_Configure_ChangeTracking_Extension_for_Linux_virtual_machine_scale_sets_1288c8d7-4b05-4e3a-bc88-9053caefc021/**'
+#      - 'policies/_Preview_Configure_machines_to_receive_a_vulnerability_assessment_provider_13ce0167-8ca6-4048-8e6b-f996402e3c1b/**'
+#      - 'policies/_Preview_Azure_Data_Factory_linked_services_should_use_Key_Vault_for_storing_secrets_127ef6d7-242f-43b3-9eef-947faf1725d0/**'
+#      - 'policies/Web_Application_Firewall_(WAF)_should_use_the_specified_mode_for_Application_Gateway_12430be1-6cc8-4527-a9a8-e3d38f250096/**'
+#      - 'policies/Allowlist_rules_in_your_adaptive_application_control_policy_should_be_updated_123a3936-f020-408a-ba0c-47873faf1534/**'
+#      - 'policies/Windows_machines_should_meet_requirements_for_Security_Options_-_Network_Security_1221c620-d201-468c-81e7-2817e6107e84/**'
+#      - 'policies/Windows_machines_should_meet_requirements_for_Security_Options_-_System_settings_12017595-5a75-4bb1-9d97-4c2c939ea3c3/**'
+#      - 'policies/_Preview_Recovery_Services_vaults_should_use_private_link_11e3da8c-1d68-4392-badd-0ff3c43ab5b0/**'
+#      - 'policies/Dependency_agent_should_be_enabled_for_listed_virtual_machine_images_11ac78e3-31bc-4f0c-8434-37ab963cea07/**'
+#      - 'policies/Modify_-_Configure_Azure_IoT_Hubs_to_disable_public_network_access_114eec6e-5e59-4bad-999d-6eceeb39d582/**'
+#      - 'policies/_Preview_Configure_ChangeTracking_Extension_for_Linux_Arc_machines_10caed8a-652c-4d1d-84e4-2805b7c07278/**'
+#      - 'policies/CORS_should_not_allow_every_domain_to_access_your_API_for_FHIR_0fea8f8a-4169-495d-8307-30ec335f387d/**'
+#      - 'policies/Public_network_access_should_be_disabled_for_Container_registries_0fdf0491-d080-4575-b627-ad0e843cba0f/**'
+#      - 'policies/Azure_Cognitive_Search_services_should_use_private_link_0fda3595-9f2b-4592-8675-4231d6fa82fe/**'
+#      - 'policies/Azure_Monitor_Private_Link_Scope_should_use_private_link_0fc55270-f8bf-4feb-b7b8-5e7e7eacc6a6/**'
+#      - 'policies/Running_container_images_should_have_vulnerability_findings_resolved_0fc39691-5a3f-4e3e-94ee-2e6447309ad9/**'
+#      - 'policies/Azure_Batch_pools_should_have_disk_encryption_enabled_1760f9d4-7206-436e-a28f-d9f3a5c8a227/**'
+#      - 'policies/Deploy_associations_for_a_managed_application_17763ad9-70c0-4794-9397-53d765932634/**'
+#      - 'policies/_Preview_Configure_system-assigned_managed_identity_to_enable_Azure_Monitor_assignments_on_VMs_17b3de92-f710-4cf4-aa55-0e7859f1ed7b/**'
+#      - 'policies/PostgreSQL_servers_should_use_customer-managed_keys_to_encrypt_data_at_rest_18adea5e-f416-4d0f-8aa8-d24321e3e274/**'
+#      - 'policies/Transparent_Data_Encryption_on_SQL_databases_should_be_enabled_17k78e20-9358-41c9-923c-fb736d382a12/**'
+#      - 'policies/Application_Insights_components_should_block_non-Azure_Active_Directory_based_ingestion._199d5677-e4d9-4264-9465-efe1839c06bd/**'
+#      - 'policies/Windows_machines_should_meet_requirements_for_System_Audit_Policies_-_Logon-Logoff_19be9779-c776-4dfa-8a15-a2fd5dc843d6/**'
+#      - 'policies/_Preview_Azure_Key_Vault_Managed_HSM_should_disable_public_network_access_19ea9d63-adee-4431-a95e-1913c6c1c75f/**'
+#      - 'policies/Azure_Event_Grid_topics_should_disable_public_network_access_1adadefe-5f21-44f7-b931-a59b54ccdb45/**'
+#      - 'policies/Azure_Monitor_log_profile_should_collect_logs_for_categories_write,_delete,_and_action_1a4e592a-6a6e-44a5-9814-e36264ca96e7/**'
+#      - 'policies/Linux_virtual_machines_should_have_Azure_Monitor_Agent_installed_1afdc4b6-581a-45fb-b630-f1e6051e3e7a/**'
+#      - 'policies/Vulnerability_assessment_should_be_enabled_on_SQL_Managed_Instance_1b7aa243-30e4-4c9e-bca8-d0d3022b634a/**'
+#      - 'policies/Public_network_access_on_Azure_SQL_Database_should_be_disabled_1b8ca024-1d5c-4dec-8995-b1a932b41780/**'
+#      - 'policies/Configure_Azure_Web_PubSub_Service_with_private_endpoints_1b9c0b58-fc7b-42c8-8010-cdfa1d1b8544/**'
+#      - 'policies/Application_Insights_components_should_block_log_ingestion_and_querying_from_public_networks_1bc02227-0cb6-4e11-8f53-eb0b22eab7e8/**'
+#      - 'policies/Ensure_that_PHP_version_is_the_latest,_if_used_as_a_part_of_the_API_app_1bc1795e-d44a-4d48-9b3b-6fff0fd5f9ba/**'
+#      - 'policies/Azure_Service_Bus_namespaces_should_use_private_link_1c06e275-d63d-4540-b761-71f364c2111d/**'
+#      - 'policies/Deploy_-_Configure_Dependency_agent_to_be_enabled_on_Windows_virtual_machines_1c210e94-a481-4beb-95fa-1571b434fb04/**'
+#      - 'policies/_Preview_vTPM_should_be_enabled_on_supported_virtual_machines_1c30f9cd-b84c-49cc-aa2c-9288447cc3b3/**'
+#      - 'policies/Configure_Azure_Event_Grid_topics_to_disable_local_authentication_1c8144d9-746a-4501-b08c-093c8d29ad04/**'
+#      - 'policies/Microsoft_Defender_for_Containers_should_be_enabled_1c988dd6-ade4-430f-a608-2a3e5b0a6d38/**'
+#      - 'policies/_Preview_Guest_Attestation_extension_should_be_installed_on_supported_Windows_virtual_machines_1cb4d9c2-f88f-4069-bee0-dba239a57b09/**'
+#      - 'policies/Azure_File_Sync_should_use_private_link_1d320205-c6a1-4ac6-873d-46224024e8e2/**'
+#      - 'policies/Public_network_access_on_Azure_Data_Factory_should_be_disabled_1cf164be-6819-4a50-b8fa-4bcaa4f98fb6/**'
+#      - 'policies/Configure_Kubernetes_clusters_with_specified_GitOps_configuration_using_no_secrets_1d61c4d2-aef2-432b-87fc-7f96b019b7e1/**'
+#      - 'policies/Virtual_machines_should_be_migrated_to_new_Azure_Resource_Manager_resources_1d84d5fb-01f6-4d12-ba4f-4a26081d403d/**'
+#      - 'policies/Require_a_tag_and_its_value_on_resources_1e30110a-5ceb-460c-a204-c1c3969c6d62/**'
+#      - 'policies/Cloud_Services_(extended_support)_role_instances_should_have_an_endpoint_protection_solution_installed_1e378679-f122-4a96-a739-a7729c46e1aa/**'
+#      - 'policies/Configure_Azure_Synapse_workspaces_to_use_private_DNS_zones_1e5ed725-f16c-478b-bd4b-7bfa2f7940b9/**'
+#      - 'policies/Key_vaults_should_have_soft_delete_enabled_1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d/**'
+#      - 'policies/Linux_machines_should_have_Log_Analytics_agent_installed_on_Azure_Arc_1e7fed80-8321-4605-b42c-65fc300f23a3/**'
+#      - 'policies/_Preview_Deploy_Microsoft_Defender_for_Endpoint_agent_on_Windows_virtual_machines_1ec9c2c2-6d64-656d-6465-3ec3309b8579/**'
+#      - 'policies/Azure_API_for_FHIR_should_use_private_link_1ee56206-5dd1-42ab-b02d-8aae8b1634ce/**'
+#      - 'policies/_Preview_Azure_Security_agent_should_be_installed_on_your_Linux_Arc_machines_1f300abb-f5a0-41c3-a163-91bd3ed35de7/**'
+#      - 'policies/An_Azure_Active_Directory_administrator_should_be_provisioned_for_SQL_servers_1f314764-cb73-4fc9-b863-8eca98ac36e9/**'
+#      - 'policies/Azure_Monitor_Logs_clusters_should_be_encrypted_with_customer-managed_key_1f68a601-6e6d-4e42-babf-3f643a047ea2/**'
+#      - 'policies/Deploy_Diagnostic_Settings_for_Event_Hub_to_Log_Analytics_workspace_1f6e93e8-6b31-41b1-83f6-36e449a42579/**'
+#      - 'policies/Only_secure_connections_to_your_Azure_Cache_for_Redis_should_be_enabled_22bee202-a82f-4305-9a2a-6d7f44d4dedb/**'
+#      - 'policies/Management_ports_should_be_closed_on_your_virtual_machines_22730e10-96f6-4aac-ad84-9383d35b5917/**'
+#      - 'initiatives/IRS1075_September_2016_105e0327-6175-4eb2-9af4-1fba43bdb39d/**'
+#      - 'initiatives/NIST_SP_800-53_Rev._5_179d1daa-458f-4e47-8086-2a68d0d6c38f/**'
+#      - 'initiatives/Azure_Security_Benchmark_1f3afdf9-d0c9-4c3d-847f-89da613e70a8/**'
+#      - .github/workflows/manage-azure-policy-be214360.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_be214360}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          policies/Deploy_Log_Analytics_extension_for_Linux_virtual_machine_scale_sets_5ee9e9ed-0b42-41b7-8c9c-3cfb2fbe2069/**
+          policies/Audit_virtual_machines_without_disaster_recovery_configured_0015ea4d-51ff-4ce3-8d8c-f3f8f0179a56/**
+          policies/Vulnerability_assessment_should_be_enabled_on_your_Synapse_workspaces_0049a6b3-a662-4f3e-8635-39cf44ace45a/**
+          policies/SQL_Server_Integration_Services_integration_runtimes_on_Azure_Data_Factory_should_be_joined_to_a_virtual_network_0088bc63-6dee-4a9c-9d29-91cfdc848952/**
+          policies/_Preview_Configure_VMSS_created_with_Shared_Image_Gallery_images_to_install_the_Guest_Attestation_extension_009259b0-12e8-42c9-94e7-7af86aa58d13/**
+          policies/Private_endpoint_connections_on_Batch_accounts_should_be_enabled_009a0c92-f5b4-4776-9b66-4ed2b4775563/**
+          policies/Azure_Backup_should_be_enabled_for_Virtual_Machines_013e242c-8828-4970-87b3-ab247555486d/**
+          policies/_Preview_Azure_Security_agent_should_be_installed_on_your_Windows_Arc_machines_0367cfc4-90b3-46ba-a8a6-ddd5d3514878/**
+          policies/Cognitive_Services_accounts_should_restrict_network_access_037eea7a-bd0a-46c5-9a66-03aea78705d3/**
+          policies/Azure_Kubernetes_Service_Private_Clusters_should_be_enabled_040732e8-d947-40b8-95d6-854c95024bf8/**
+          policies/Audit_Linux_machines_that_have_the_specified_applications_installed_0447bc18-e2f7-4c0d-aa20-bff034275be1/**
+          policies/Storage_account_keys_should_not_be_expired_044985bb-afe1-42cd-8a36-9d5d42424537/**
+          policies/Azure_Cosmos_DB_allowed_locations_0473574d-2d43-4217-aefe-941fcdf7e684/**
+          policies/_Preview_Network_traffic_data_collection_agent_should_be_installed_on_Linux_virtual_machines_04c4380f-3fae-46e8-96c9-30193528f602/**
+          policies/Shared_dashboards_should_not_have_markdown_tiles_with_inline_content_04c655fe-0ac7-48ae-9a32-3a2e208c7624/**
+          policies/Deploy_Diagnostic_Settings_for_Service_Bus_to_Log_Analytics_workspace_04d53d87-841c-4f23-8a5b-21564380b55e/**
+          policies/Configure_Linux_Virtual_Machine_Scale_Sets_to_be_associated_with_a_Data_Collection_Rule_050a90d5-7cce-483f-8f6c-0df462036dda/**
+          policies/Azure_API_for_FHIR_should_use_a_customer-managed_key_to_encrypt_data_at_rest_051cba44-2429-45b9-9649-46cec11c7119/**
+          policies/Deploy_Log_Analytics_extension_for_Linux_VMs_053d3325-282c-4e5c-b944-24faffd30d77/**
+          policies/Azure_Web_Application_Firewall_should_be_enabled_for_Azure_Front_Door_entry-points_055aa869-bc98-4af8-bafc-23f1ab6ffe2c/**
+          policies/Private_endpoint_should_be_enabled_for_PostgreSQL_servers_0564d078-92f5-4f97-8398-b9f58a51f70b/**
+          policies/Vulnerability_Assessment_settings_for_SQL_server_should_contain_an_email_address_to_receive_scan_reports_057d6cfe-9c4f-4a6d-bc60-14420ea1f1a9/**
+          policies/Resource_logs_in_Azure_Data_Lake_Store_should_be_enabled_057ef27e-665e-4328-8ea3-04b3122bd9fb/**
+          policies/Configure_Azure_File_Sync_to_use_private_DNS_zones_06695360-db88-47f6-b976-7500d4297475/**
+          policies/Audit_VMs_that_do_not_use_managed_disks_06a78e20-9358-41c9-923c-fb736d382a4d/**
+          policies/Cognitive_Services_accounts_should_disable_public_network_access_0725b4dd-7e76-479c-a735-68e7ee23d5ca/**
+          policies/CORS_should_not_allow_every_resource_to_access_your_Function_Apps_0820b7b9-23aa-4725-a1ce-ae4558f718e5/**
+          policies/Deploy_-_Configure_Log_Analytics_extension_to_be_enabled_on_Windows_virtual_machines_0868462e-646c-4fe3-9ced-a733534b6a2c/**
+          policies/Audit_Windows_machines_on_which_the_DSC_configuration_is_not_compliant_08a2f2d2-94b2-4a7b-aa3b-bb3f523ee6fd/**
+          policies/Azure_Edge_Hardware_Center_devices_should_have_double_encryption_support_enabled_08a6b96f-576e-47a2-8511-119a212d344d/**
+          policies/Configure_Data_Factories_to_disable_public_network_access_08b1442b-7789-4130-8506-4f99a97226a7/**
+          policies/Deploy_Diagnostic_Settings_for_Search_Services_to_Log_Analytics_workspace_08ba64b8-738f-4918-9686-730d2ed79c7d/**
+          policies/Adaptive_network_hardening_recommendations_should_be_applied_on_internet_facing_virtual_machines_08e6af2d-db70-460a-bfe9-d5bd474ba9d6/**
+          policies/There_should_be_more_than_one_owner_assigned_to_your_subscription_09024ccc-0c5f-475e-9457-b7c0d9ed487b/**
+          policies/Virtual_machines_should_encrypt_temp_disks,_caches,_and_data_flows_between_Compute_and_Storage_resources_0961003e-5a0a-4549-abde-af6a37f2724d/**
+          policies/Configure_backup_on_virtual_machines_without_a_given_tag_to_an_existing_recovery_services_vault_in_the_same_location_09ce66bc-1220-4153-8104-e3f51c936913/**
+          policies/Private_endpoint_should_be_enabled_for_MariaDB_servers_0a1302fb-a631-4106-9753-f3d494733990/**
+          policies/Azure_Policy_Add-on_for_Kubernetes_service_(AKS)_should_be_installed_and_enabled_on_your_clusters_0a15ec92-a229-4763-bb14-0ea34a568f8d/**
+          policies/SQL_servers_should_use_customer-managed_keys_to_encrypt_data_at_rest_0a370ff3-6cab-4e85-8995-295fd854c5b8/**
+          policies/Configure_Windows_Virtual_Machine_Scale_Sets_to_be_associated_with_a_Data_Collection_Rule_0a3b9bf4-d30e-424a-af6b-9a93f6f78792/**
+          policies/Audit_resource_location_matches_resource_group_location_0a914e76-4921-4c19-b460-a2d36003525a/**
+          policies/Azure_Defender_for_open-source_relational_databases_should_be_enabled_0a9fbe0d-c5c4-4da8-87d8-f4fd77338835/**
+          policies/Azure_Container_Instance_container_group_should_use_customer-managed_key_for_encryption_0aa61e00-0a01-4a3c-9945-e93cffedf0e6/**
+          policies/_Preview_Configure_Azure_Arc_enabled_Kubernetes_clusters_to_install_the_Azure_Policy_extension_0adc5395-9169-4b9b-8687-af838d69410a/**
+          policies/Configure_Azure_Web_PubSub_Service_to_use_private_DNS_zones_0b026355-49cb-467b-8ac4-f777874e175a/**
+          policies/Email_notification_to_subscription_owner_for_high_severity_alerts_should_be_enabled_0b15565f-aa9e-48ba-8619-45960f2c314d/**
+          policies/Key_vaults_should_have_purge_protection_enabled_0b60c0b2-2dc2-4e1c-b5c9-abbed971de53/**
+          policies/Azure_Cosmos_DB_throughput_should_be_limited_0b7ef78e-a035-4f23-b9bd-aff122a1b1cf/**
+          policies/Ensure_API_app_has_Client_Certificates_(Incoming_client_certificates)_set_to_On_0c192fe8-9cbb-4516-85b3-0ade8bd03886/**
+          policies/Private_endpoint_connections_on_Automation_Accounts_should_be_enabled_0c2b3618-68a8-4034-a150-ff4abc873462/**
+          policies/Application_Insights_components_with_Private_Link_enabled_should_use_Bring_Your_Own_Storage_accounts_for_profiler_and_debugger._0c4bd2e8-8872-4f37-a654-03f6f38ddc76/**
+          policies/Private_endpoint_should_be_enabled_for_IoT_Hub_0d40b058-9f95-4a19-93e3-9b0330baa2a3/**
+          policies/Managed_identity_should_be_used_in_your_Function_App_0da106f2-4ca3-48e8-bc85-c638fe6aea8f/**
+          policies/Deploy_a_flow_log_resource_with_target_network_security_group_0db34a60-64f4-4bf6-bd44-f95c16cf34b9/**
+          policies/Modify_-_Configure_Azure_File_Sync_to_disable_public_network_access_0e07b2e9-6cd9-4c40-9ccb-52817b95133b/**
+          policies/Authorized_IP_ranges_should_be_defined_on_Kubernetes_Services_0e246bcf-5f6f-4f87-bc6f-775d4712c7ea/**
+          policies/Remote_debugging_should_be_turned_off_for_Function_Apps_0e60b895-3786-45da-8377-9c6b4b6ac5f9/**
+          policies/Geo-redundant_backup_should_be_enabled_for_Azure_Database_for_MariaDB_0ec47710-77ff-4a3d-9181-6aa50af424d0/**
+          policies/Azure_Defender_for_Key_Vault_should_be_enabled_0e6763cc-5078-4e64-889d-ff4d9a839047/**
+          policies/Configure_Batch_accounts_with_private_endpoints_0ef5aac7-c064-427a-b87b-d47b3ddcaf73/**
+          policies/_Preview_Audit_Azure_Spring_Cloud_instances_where_distributed_tracing_is_not_enabled_0f2d8593-4667-4932-acca-6a9f187af109/**
+          policies/Azure_NetApp_Files_Volumes_of_type_NFSv4.1_should_use_Kerberos_data_integrity_or_data_privacy_16f4af95-96b1-4220-805a-367ca59cd72e/**
+          policies/Video_Analyzer_accounts_should_use_customer-managed_keys_to_encrypt_data_at_rest_165a4137-c3ed-4fd0-a17f-1c8a80266580/**
+          policies/Log_Analytics_agent_should_be_installed_on_your_Cloud_Services_(extended_support)_role_instances_15fdbc87-8a47-4ee9-a2aa-9a2ea1f37554/**
+          policies/_Preview_Configure_supported_Windows_machines_to_automatically_install_the_Azure_Security_agent_1537496a-b1e8-482b-a06a-1cc2415cdc7b/**
+          policies/Configure_Cognitive_Services_accounts_to_disable_local_authentication_methods_14de9e63-1b31-492e-a5a3-c3f7fd57f555/**
+          policies/Audit_Windows_machines_that_contain_certificates_expiring_within_the_specified_number_of_days_1417908b-4bff-46ee-a2a6-4acc899320ab/**
+          policies/_Preview_Configure_ChangeTracking_Extension_for_Linux_virtual_machine_scale_sets_1288c8d7-4b05-4e3a-bc88-9053caefc021/**
+          policies/_Preview_Configure_machines_to_receive_a_vulnerability_assessment_provider_13ce0167-8ca6-4048-8e6b-f996402e3c1b/**
+          policies/_Preview_Azure_Data_Factory_linked_services_should_use_Key_Vault_for_storing_secrets_127ef6d7-242f-43b3-9eef-947faf1725d0/**
+          policies/Web_Application_Firewall_(WAF)_should_use_the_specified_mode_for_Application_Gateway_12430be1-6cc8-4527-a9a8-e3d38f250096/**
+          policies/Allowlist_rules_in_your_adaptive_application_control_policy_should_be_updated_123a3936-f020-408a-ba0c-47873faf1534/**
+          policies/Windows_machines_should_meet_requirements_for_Security_Options_-_Network_Security_1221c620-d201-468c-81e7-2817e6107e84/**
+          policies/Windows_machines_should_meet_requirements_for_Security_Options_-_System_settings_12017595-5a75-4bb1-9d97-4c2c939ea3c3/**
+          policies/_Preview_Recovery_Services_vaults_should_use_private_link_11e3da8c-1d68-4392-badd-0ff3c43ab5b0/**
+          policies/Dependency_agent_should_be_enabled_for_listed_virtual_machine_images_11ac78e3-31bc-4f0c-8434-37ab963cea07/**
+          policies/Modify_-_Configure_Azure_IoT_Hubs_to_disable_public_network_access_114eec6e-5e59-4bad-999d-6eceeb39d582/**
+          policies/_Preview_Configure_ChangeTracking_Extension_for_Linux_Arc_machines_10caed8a-652c-4d1d-84e4-2805b7c07278/**
+          policies/CORS_should_not_allow_every_domain_to_access_your_API_for_FHIR_0fea8f8a-4169-495d-8307-30ec335f387d/**
+          policies/Public_network_access_should_be_disabled_for_Container_registries_0fdf0491-d080-4575-b627-ad0e843cba0f/**
+          policies/Azure_Cognitive_Search_services_should_use_private_link_0fda3595-9f2b-4592-8675-4231d6fa82fe/**
+          policies/Azure_Monitor_Private_Link_Scope_should_use_private_link_0fc55270-f8bf-4feb-b7b8-5e7e7eacc6a6/**
+          policies/Running_container_images_should_have_vulnerability_findings_resolved_0fc39691-5a3f-4e3e-94ee-2e6447309ad9/**
+          policies/Azure_Batch_pools_should_have_disk_encryption_enabled_1760f9d4-7206-436e-a28f-d9f3a5c8a227/**
+          policies/Deploy_associations_for_a_managed_application_17763ad9-70c0-4794-9397-53d765932634/**
+          policies/_Preview_Configure_system-assigned_managed_identity_to_enable_Azure_Monitor_assignments_on_VMs_17b3de92-f710-4cf4-aa55-0e7859f1ed7b/**
+          policies/PostgreSQL_servers_should_use_customer-managed_keys_to_encrypt_data_at_rest_18adea5e-f416-4d0f-8aa8-d24321e3e274/**
+          policies/Transparent_Data_Encryption_on_SQL_databases_should_be_enabled_17k78e20-9358-41c9-923c-fb736d382a12/**
+          policies/Application_Insights_components_should_block_non-Azure_Active_Directory_based_ingestion._199d5677-e4d9-4264-9465-efe1839c06bd/**
+          policies/Windows_machines_should_meet_requirements_for_System_Audit_Policies_-_Logon-Logoff_19be9779-c776-4dfa-8a15-a2fd5dc843d6/**
+          policies/_Preview_Azure_Key_Vault_Managed_HSM_should_disable_public_network_access_19ea9d63-adee-4431-a95e-1913c6c1c75f/**
+          policies/Azure_Event_Grid_topics_should_disable_public_network_access_1adadefe-5f21-44f7-b931-a59b54ccdb45/**
+          policies/Azure_Monitor_log_profile_should_collect_logs_for_categories_write,_delete,_and_action_1a4e592a-6a6e-44a5-9814-e36264ca96e7/**
+          policies/Linux_virtual_machines_should_have_Azure_Monitor_Agent_installed_1afdc4b6-581a-45fb-b630-f1e6051e3e7a/**
+          policies/Vulnerability_assessment_should_be_enabled_on_SQL_Managed_Instance_1b7aa243-30e4-4c9e-bca8-d0d3022b634a/**
+          policies/Public_network_access_on_Azure_SQL_Database_should_be_disabled_1b8ca024-1d5c-4dec-8995-b1a932b41780/**
+          policies/Configure_Azure_Web_PubSub_Service_with_private_endpoints_1b9c0b58-fc7b-42c8-8010-cdfa1d1b8544/**
+          policies/Application_Insights_components_should_block_log_ingestion_and_querying_from_public_networks_1bc02227-0cb6-4e11-8f53-eb0b22eab7e8/**
+          policies/Ensure_that_PHP_version_is_the_latest,_if_used_as_a_part_of_the_API_app_1bc1795e-d44a-4d48-9b3b-6fff0fd5f9ba/**
+          policies/Azure_Service_Bus_namespaces_should_use_private_link_1c06e275-d63d-4540-b761-71f364c2111d/**
+          policies/Deploy_-_Configure_Dependency_agent_to_be_enabled_on_Windows_virtual_machines_1c210e94-a481-4beb-95fa-1571b434fb04/**
+          policies/_Preview_vTPM_should_be_enabled_on_supported_virtual_machines_1c30f9cd-b84c-49cc-aa2c-9288447cc3b3/**
+          policies/Configure_Azure_Event_Grid_topics_to_disable_local_authentication_1c8144d9-746a-4501-b08c-093c8d29ad04/**
+          policies/Microsoft_Defender_for_Containers_should_be_enabled_1c988dd6-ade4-430f-a608-2a3e5b0a6d38/**
+          policies/_Preview_Guest_Attestation_extension_should_be_installed_on_supported_Windows_virtual_machines_1cb4d9c2-f88f-4069-bee0-dba239a57b09/**
+          policies/Azure_File_Sync_should_use_private_link_1d320205-c6a1-4ac6-873d-46224024e8e2/**
+          policies/Public_network_access_on_Azure_Data_Factory_should_be_disabled_1cf164be-6819-4a50-b8fa-4bcaa4f98fb6/**
+          policies/Configure_Kubernetes_clusters_with_specified_GitOps_configuration_using_no_secrets_1d61c4d2-aef2-432b-87fc-7f96b019b7e1/**
+          policies/Virtual_machines_should_be_migrated_to_new_Azure_Resource_Manager_resources_1d84d5fb-01f6-4d12-ba4f-4a26081d403d/**
+          policies/Require_a_tag_and_its_value_on_resources_1e30110a-5ceb-460c-a204-c1c3969c6d62/**
+          policies/Cloud_Services_(extended_support)_role_instances_should_have_an_endpoint_protection_solution_installed_1e378679-f122-4a96-a739-a7729c46e1aa/**
+          policies/Configure_Azure_Synapse_workspaces_to_use_private_DNS_zones_1e5ed725-f16c-478b-bd4b-7bfa2f7940b9/**
+          policies/Key_vaults_should_have_soft_delete_enabled_1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d/**
+          policies/Linux_machines_should_have_Log_Analytics_agent_installed_on_Azure_Arc_1e7fed80-8321-4605-b42c-65fc300f23a3/**
+          policies/_Preview_Deploy_Microsoft_Defender_for_Endpoint_agent_on_Windows_virtual_machines_1ec9c2c2-6d64-656d-6465-3ec3309b8579/**
+          policies/Azure_API_for_FHIR_should_use_private_link_1ee56206-5dd1-42ab-b02d-8aae8b1634ce/**
+          policies/_Preview_Azure_Security_agent_should_be_installed_on_your_Linux_Arc_machines_1f300abb-f5a0-41c3-a163-91bd3ed35de7/**
+          policies/An_Azure_Active_Directory_administrator_should_be_provisioned_for_SQL_servers_1f314764-cb73-4fc9-b863-8eca98ac36e9/**
+          policies/Azure_Monitor_Logs_clusters_should_be_encrypted_with_customer-managed_key_1f68a601-6e6d-4e42-babf-3f643a047ea2/**
+          policies/Deploy_Diagnostic_Settings_for_Event_Hub_to_Log_Analytics_workspace_1f6e93e8-6b31-41b1-83f6-36e449a42579/**
+          policies/Only_secure_connections_to_your_Azure_Cache_for_Redis_should_be_enabled_22bee202-a82f-4305-9a2a-6d7f44d4dedb/**
+          policies/Management_ports_should_be_closed_on_your_virtual_machines_22730e10-96f6-4aac-ad84-9383d35b5917/**
+          initiatives/IRS1075_September_2016_105e0327-6175-4eb2-9af4-1fba43bdb39d/**
+          initiatives/NIST_SP_800-53_Rev._5_179d1daa-458f-4e47-8086-2a68d0d6c38f/**
+          initiatives/Azure_Security_Benchmark_1f3afdf9-d0c9-4c3d-847f-89da613e70a8/**
